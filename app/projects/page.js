@@ -95,8 +95,8 @@ export default function ProjectsPage() {
   return (
     <main className="p-6 bg-white text-gray-900">
       {/* Sticky header with New Project button */}
-      <div className="sticky top-0 z-10 bg-white pb-4 mb-4">
-        <div className="flex justify-between items-center mb-6">
+      <div className="sticky top-0 z-20 bg-white pb-4 border-b border-gray-100">
+        <div className="flex justify-between items-center mb-2">
           <h1 className="text-3xl font-bold">Project Hub</h1>
           <Link
             href="/projects/new"
@@ -105,11 +105,16 @@ export default function ProjectsPage() {
             + New Project
           </Link>
         </div>
-        
-        {/* Dashboard Overview */}
+      </div>
+      
+      {/* Dashboard Overview - NOT sticky (normal scroll) */}
+      <div className="bg-white mb-4">
         <ProjectsDashboard />
-        
-        <div className="flex gap-2 mt-2">
+      </div>
+      
+      {/* Search & filters - Sticky below header */}
+      <div className="sticky top-16 z-10 bg-white pt-2 pb-2 border-b border-gray-100">
+        <div className="flex gap-2">
           <input
             type="text"
             placeholder="Search by client, project, date or number…"
@@ -196,7 +201,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Results count & stats */}
-      <div className="mb-4 flex justify-between items-center">
+      <div className="mt-6 mb-4 flex justify-between items-center pt-2 border-t border-gray-100">
         <div className="text-gray-700">
           {loading ? (
             <span>Loading projects...</span>

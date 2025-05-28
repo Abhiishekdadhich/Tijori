@@ -43,12 +43,8 @@ export default function ProjectsDashboard() {
       const withDwg = projects.filter(p => p.dwg).length;
       const withPdf = projects.filter(p => p.pdf).length;
       const uniqueClients = [...new Set(projects.map(p => p.client).filter(Boolean))];
-      const completedProjects = projects.filter(
-        p => p.actual_delivery_date && 
-          p.dwg && 
-          p.pdf && 
-          p.template
-      ).length;
+      // Updated to just check for actual_delivery_date
+      const completedProjects = projects.filter(p => p.actual_delivery_date).length;
       
       setStats({
         total: projects.length,
@@ -76,8 +72,8 @@ export default function ProjectsDashboard() {
   }
   
   return (
-    <div className="mb-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
-      <h2 className="text-xl font-bold mb-6 flex items-center">
+    <div className="mb-4 bg-gray-50 rounded-xl p-4 border border-gray-200 shadow-sm transition-all duration-300">
+      <h2 className="text-xl font-bold mb-4 flex items-center">
         <BarChart3 className="h-5 w-5 mr-2 text-teal-600" />
         Projects Overview
       </h2>
@@ -116,6 +112,7 @@ export default function ProjectsDashboard() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project No.</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entry Date</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -128,7 +125,9 @@ export default function ProjectsDashboard() {
                     <div className="text-sm font-medium text-gray-900">
                       {project.project_name || `Project ${project.project_no}`}
                     </div>
-                    <div className="text-sm text-gray-500">#{project.project_no}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    #{project.project_no}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {project.client || '—'}
@@ -152,7 +151,7 @@ export default function ProjectsDashboard() {
               
               {recentActivity.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-6 py-4 text-center text-sm text-gray-500">
+                  <td colSpan="5" className="px-6 py-4 text-center text-sm text-gray-500">
                     No recent projects found
                   </td>
                 </tr>
@@ -167,8 +166,7 @@ export default function ProjectsDashboard() {
 
 // Helper to check if a project is complete
 function isProjectComplete(project) {
-  return project.actual_delivery_date && 
-    project.dwg && 
-    project.pdf && 
-    project.template;
+  // Now just check if actual_delivery_date exists
+  // We'll add more complex logic in future updates
+  return project.actual_delivery_date ? true : false;
 }
