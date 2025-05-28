@@ -1,4 +1,4 @@
-// app/Sidebar.js
+// app/sidebar.js
 'use client'
 
 import Link from 'next/link'
