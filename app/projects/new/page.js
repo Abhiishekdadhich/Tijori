@@ -12,7 +12,9 @@ export default function NewProjectPage() {
     project_no: '',
     client: '',
     project_name: '',
+    category: '',
     scanned_by: '',
+    target_delivery_date: '',
     actual_delivery_date: '',
     description: '',
     levels: '',
@@ -26,6 +28,7 @@ export default function NewProjectPage() {
     file_sharing: '',
     scanning_date: '',
     pdf: '',
+    attachments: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +55,7 @@ export default function NewProjectPage() {
   const statusKeys = [
     'description','levels','dwg','template','revit_version',
     'arch_emd','google_earth_link','mep_emd_tier','comments',
-    'file_sharing','scanning_date','pdf'
+    'file_sharing','scanning_date','pdf','attachments'
   ];
 
   return (
@@ -81,7 +84,9 @@ export default function NewProjectPage() {
               ['project_no','number','Project No.'],
               ['client','text','Client'],
               ['project_name','text','Project Name'],
+              ['category','text','Category'],
               ['scanned_by','text','Scanned By'],
+              ['target_delivery_date','date','Target Delivery Date'],
               ['actual_delivery_date','date','Actual Delivery Date'],
             ].map(([name,type,label]) => (
               <div key={name}>

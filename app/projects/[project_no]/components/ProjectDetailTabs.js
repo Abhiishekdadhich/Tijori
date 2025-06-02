@@ -32,6 +32,8 @@ export default function ProjectDetailTabs({ project }) {
                 'project_no',
                 'client',
                 'project_name',
+                'category',
+                'target_delivery_date',
                 'actual_delivery_date',
                 'scanned_by',
                 'scanning_date',
@@ -51,6 +53,7 @@ export default function ProjectDetailTabs({ project }) {
                 'template',
                 'pdf',
                 'file_sharing',
+                'attachments',
               ].map((key) => (
                 <DetailField key={key} label={titleCase(key)} value={project[key]} isFile />
               ))}
@@ -61,9 +64,9 @@ export default function ProjectDetailTabs({ project }) {
                     href={project.google_earth_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                    className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center"
                   >
-                    {project.google_earth_link}
+                    Open Google Earth
                   </a>
                 </div>
               )}

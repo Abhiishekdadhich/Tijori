@@ -15,7 +15,9 @@ export default function EditProjectPage({ params }) {
     project_no: project_no,
     client: '',
     project_name: '',
+    category: '',
     scanned_by: '',
+    target_delivery_date: '',
     actual_delivery_date: '',
     description: '',
     levels: '',
@@ -29,6 +31,7 @@ export default function EditProjectPage({ params }) {
     file_sharing: '',
     scanning_date: '',
     pdf: '',
+    attachments: '',
   });
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
@@ -88,7 +91,7 @@ export default function EditProjectPage({ params }) {
   const statusKeys = [
     'description','levels','dwg','template','revit_version',
     'arch_emd','google_earth_link','mep_emd_tier','comments',
-    'file_sharing','scanning_date','pdf'
+    'file_sharing','scanning_date','pdf','attachments'
   ];
 
   if (fetchLoading) {
@@ -126,7 +129,9 @@ export default function EditProjectPage({ params }) {
               ['entry_date','date','Entry Date'],
               ['client','text','Client'],
               ['project_name','text','Project Name'],
+              ['category','text','Category'],
               ['scanned_by','text','Scanned By'],
+              ['target_delivery_date','date','Target Delivery Date'],
               ['actual_delivery_date','date','Actual Delivery Date'],
             ].map(([name,type,label]) => (
               <div key={name}>
