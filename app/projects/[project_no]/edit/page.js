@@ -5,6 +5,37 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState, use } from 'react';
 import { supabase } from '../../../../lib/supabaseClient';
 
+// Field mapping to display friendly names for database columns
+const getFieldDisplayName = (fieldName) => {
+  const fieldMap = {
+    'entry_date': 'Entry Date',
+    'project_no': 'Project No.',
+    'client': 'Client',
+    'project_name': 'Project Name',
+    'category': 'Category',
+    'scanned_by': 'Scanned By',
+    'target_delivery_date': 'Target Delivery Date',
+    'actual_delivery_date': 'Actual Delivery Date',
+    'description': 'Description',
+    'levels': 'Levels',
+    'dwg': 'DWG',
+    'template': 'Template',
+    'revit_version': 'Revit Version',
+    'deliverables_arch': 'Arch EMD',
+    'google_earth_link': 'Google Earth Link',
+    'deliverables_mep': 'MEP EMD & Tier',
+    'comments': 'Comments',
+    'file_sharing': 'File Sharing',
+    'scanning_date': 'Scanning Date',
+    'pdf': 'PDF',
+    'attachments': 'Attachments',
+  };
+  
+  return fieldMap[fieldName] || fieldName.split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 export default function EditProjectPage({ params }) {
   const router = useRouter();
   // Unwrap params using React.use() as recommended for future compatibility
@@ -24,9 +55,9 @@ export default function EditProjectPage({ params }) {
     dwg: '',
     template: '',
     revit_version: '',
-    arch_emd: '',
+    deliverables_arch: '',
     google_earth_link: '',
-    mep_emd_tier: '',
+    deliverables_mep: '',
     comments: '',
     file_sharing: '',
     scanning_date: '',
@@ -90,7 +121,7 @@ export default function EditProjectPage({ params }) {
 
   const statusKeys = [
     'description','levels','dwg','template','revit_version',
-    'arch_emd','google_earth_link','mep_emd_tier','comments',
+    'deliverables_arch','google_earth_link','deliverables_mep','comments',
     'file_sharing','scanning_date','pdf','attachments'
   ];
 
@@ -135,7 +166,7 @@ export default function EditProjectPage({ params }) {
               ['actual_delivery_date','date','Actual Delivery Date'],
             ].map(([name,type,label]) => (
               <div key={name}>
-                <label className="block font-medium">{label}</label>
+                <label className="block font-medium">{getFieldDisplayName(name)}</label>
                 <input
                   type={type}
                   name={name}
@@ -165,7 +196,7 @@ export default function EditProjectPage({ params }) {
             {statusKeys.map((key) => (
               <div key={key}>
                 <label className="block font-medium">
-                  {key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
+                  {getFieldDisplayName(key)}
                 </label>
                 <input
                   type="text"

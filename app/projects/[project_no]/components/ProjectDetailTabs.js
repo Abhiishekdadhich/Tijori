@@ -10,6 +10,35 @@ import {
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
+// Field mapping to display friendly names for database columns
+const getFieldDisplayName = (fieldName) => {
+  const fieldMap = {
+    'entry_date': 'Entry Date',
+    'project_no': 'Project No.',
+    'client': 'Client',
+    'project_name': 'Project Name',
+    'category': 'Category',
+    'scanned_by': 'Scanned By',
+    'target_delivery_date': 'Target Delivery Date',
+    'actual_delivery_date': 'Actual Delivery Date',
+    'description': 'Description',
+    'levels': 'Levels',
+    'dwg': 'DWG',
+    'template': 'Template',
+    'revit_version': 'Revit Version',
+    'deliverables_arch': 'Arch EMD',
+    'google_earth_link': 'Google Earth Link',
+    'deliverables_mep': 'MEP EMD & Tier',
+    'comments': 'Comments',
+    'file_sharing': 'File Sharing',
+    'scanning_date': 'Scanning Date',
+    'pdf': 'PDF',
+    'attachments': 'Attachments',
+  };
+  
+  return fieldMap[fieldName] || titleCase(fieldName);
+};
+
 export default function ProjectDetailTabs({ project }) {
   const [activeTab, setActiveTab] = useState('details');
   
@@ -38,7 +67,7 @@ export default function ProjectDetailTabs({ project }) {
                 'scanned_by',
                 'scanning_date',
               ].map((key) => (
-                <DetailField key={key} label={titleCase(key)} value={project[key]} />
+                <DetailField key={key} label={getFieldDisplayName(key)} value={project[key]} />
               ))}
             </div>
           </div>
@@ -55,7 +84,7 @@ export default function ProjectDetailTabs({ project }) {
                 'file_sharing',
                 'attachments',
               ].map((key) => (
-                <DetailField key={key} label={titleCase(key)} value={project[key]} isFile />
+                <DetailField key={key} label={getFieldDisplayName(key)} value={project[key]} isFile />
               ))}
               {project.google_earth_link && (
                 <div className="col-span-2 p-4 bg-white rounded-lg border border-gray-100">
@@ -82,10 +111,10 @@ export default function ProjectDetailTabs({ project }) {
                 'description',
                 'levels',
                 'revit_version',
-                'arch_emd',
-                'mep_emd_tier',
+                'deliverables_arch',
+                'deliverables_mep',
               ].map((key) => (
-                <DetailField key={key} label={titleCase(key)} value={project[key]} />
+                <DetailField key={key} label={getFieldDisplayName(key)} value={project[key]} />
               ))}
             </div>
           </div>

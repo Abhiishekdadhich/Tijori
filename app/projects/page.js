@@ -250,6 +250,37 @@ export default function ProjectsPage() {
   );
 }
 
+// Field mapping to display friendly names for database columns
+const getFieldDisplayName = (fieldName) => {
+  const fieldMap = {
+    'entry_date': 'Entry Date',
+    'project_no': 'Project No.',
+    'client': 'Client',
+    'project_name': 'Project Name',
+    'category': 'Category',
+    'scanned_by': 'Scanned By',
+    'target_delivery_date': 'Target Delivery Date',
+    'actual_delivery_date': 'Actual Delivery Date',
+    'description': 'Description',
+    'levels': 'Levels',
+    'dwg': 'DWG',
+    'template': 'Template',
+    'revit_version': 'Revit Version',
+    'deliverables_arch': 'Arch EMD',
+    'google_earth_link': 'Google Earth Link',
+    'deliverables_mep': 'MEP EMD & Tier',
+    'comments': 'Comments',
+    'file_sharing': 'File Sharing',
+    'scanning_date': 'Scanning Date',
+    'pdf': 'PDF',
+    'attachments': 'Attachments',
+  };
+  
+  return fieldMap[fieldName] || fieldName.split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 function ProjectCard({ project }) {
   const coreFields = [
     ['Entry Date',           project.entry_date],
@@ -266,9 +297,9 @@ function ProjectCard({ project }) {
     ['DWG',                project.dwg],
     ['Template',           project.template],
     ['Revit Version',      project.revit_version],
-    ['Arch EMD',           project.arch_emd],
+    ['Arch EMD',           project.deliverables_arch],
     ['Google Earth Link',  project.google_earth_link],
-    ['MEP EMD & Tier',     project.mep_emd_tier],
+    ['MEP EMD & Tier',     project.deliverables_mep],
     ['Comments',           project.comments],
     ['File Sharing',       project.file_sharing],
     ['Scanning Date',      project.scanning_date],
